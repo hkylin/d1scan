@@ -1,0 +1,5 @@
+Django==2.1.5
+future==0.17.1
+python-nmap==0.6.1
+python-whois==0.7.1
+pytz==2018.9

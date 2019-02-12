@@ -1,0 +1,290 @@
+{% extends 'base/base.html' %}
+
+{% block stylesheets %}
+    <link href="/static/vendors/jquery-notifyjs/styles/metro/notify-metro.css" rel="stylesheet">
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>在线日志
+                        <small></small>
+                    </h3>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>在线日志
+                                <small>正确填写连接的主机信息后，可打开web日至</small>
+                            </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <form class="form-horizontal form-label-left" id="cmd_from">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">选择主机: <span
+                                            class="required">*</span>
+                                    </label>
+                                    <div class="col-md-7">
+                                        <select class="form-control" id="host" name="host" required>
+                                            {% for h in hosts %}
+                                                <option value="{{ h.id }}">{{ h.hostname }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">文件路径: <span
+                                            class="required">*</span>
+                                    </label>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="text" id="filepath" name="filepath"
+                                               value="-f /var/log/messages"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <a id="tail" class="btn btn-primary" type="submit">查看</a>
+                                        <a id="tail_stop" class="btn btn-danger" type="submit">停止查看</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+
+
+            <div class="clearfix"></div>
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>日志输出结果<small>实时输出</small>
+                            </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <pre id="output_append"></pre>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ block.super }}
+    <script src="/static/vendors/jquery-notifyjs/notify.min.js"></script>
+    <script src="/static/vendors/jquery-notifyjs/styles/metro/notify-metro.js"></script>
+    <script>
+        function autohidenotify(style, title, text, position) {
+            if (style == "error") {
+                icon = "fa fa-exclamation";
+            } else if (style == "warning") {
+                icon = "fa fa-warning";
+            } else if (style == "success") {
+                icon = "fa fa-check";
+            } else if (style == "info") {
+                icon = "fa fa-question";
+            } else {
+                icon = "fa fa-circle-o";
+            }
+            $.notify({
+                title: title,
+                text: text,
+                image: "<i class='fa fa-warning'></i>"
+            }, {
+                style: 'metro',
+                className: style,
+                globalPosition: position,
+                showAnimation: "show",
+                showDuration: 0,
+                hideDuration: 0,
+                autoHideDelay: 3000,
+                autoHide: true,
+                clickToHide: true
+            });
+        }
+
+
+        $(function () {
+
+            $(document).on('click', '#tail', function () {
+
+                $.ajax({
+                    url: "#",
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    type: 'POST',
+                    data: $('#cmd_from').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            autohidenotify('success', '连接成功', '请稍等');
+                        } else {
+                            autohidenotify('error', '连接失败', obj.error);
+                        }
+
+                    }
+                })
+            });
+
+            $(document).on('click', '#tail_stop', function () {
+
+                $.ajax({
+                    url: "#",
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    type: 'POST',
+                    data: {"status": "stop", "csrfmiddlewaretoken": '{{ csrf_token }}'},
+                    success: function (data) {
+
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            autohidenotify('success', '停止成功', '请稍等');
+                        } else {
+                            autohidenotify('error', '停止失败', '请稍等');
+                        }
+
+                    }
+                })
+            });
+        });
+
+
+        $(document).ready(function () {
+            CreateWebSocket();
+        });
+
+
+        function CreateWebSocket() {
+            var socket = new WebSocket('ws://' + window.location.host + '/ws/');
+            socket.onmessage = function (message) {
+                var result = JSON.parse(message.data);
+                var status = result.status;
+                var data = result.data;
+                var output_html = '';
+                if (status === 0) {
+                    {#            $('#output_append').empty();#}
+                    output_html = data;
+                } else if (status === 1) {
+                    $('#output_append').empty();
+                    output_html = data;
+                }
+                $("#output_append").prepend(output_html);
+            }
+        }
+
+
+        $(function () {
+            var setting = {
+                view: {
+                    showLine: true,
+                    selectedMulti: false,
+                    dblClickExpand: false
+                },
+
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "id",
+                        pIdKey: "pId",
+                        rootPId: 0
+                    }
+                },
+
+                callback: {
+                    beforeClick: getCurrentNode,
+                    {#                         onClick : zTreeOnClick#}
+                }
+            };
+
+            $.ajax({
+                url: '#',
+                type: 'get',
+                data: '',
+                dataType: 'json',
+                success: function (data) {
+                    zTreeObj = $.fn.zTree.init($("#ztree4"), setting, data);
+                    zTreeObj.expandAll(true);
+                }
+            });
+        });
+
+        function getCurrentNode(treeId, treeNode) {
+            curNode = treeNode;
+            zTreeOnClick(curNode);
+        }
+
+        function zTreeOnClick(treeNode) {
+
+            if (treeNode.id > 0 && treeNode.id < 10000) {
+                window.location.href = encodeURI('/tasks/tail.html?project=' + treeNode.n)
+            } else {
+                window.location.href = encodeURI('/tasks/tail.html?business=' + treeNode.id + '&project=' + treeNode.pId)
+            }
+            if (treeNode.id == 0) {
+                window.location.href = '#'
+            }
+
+        }
+
+
+    </script>
+
+{% endblock %}
