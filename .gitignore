@@ -1,6 +1,7 @@
 # Python
 __pycache__
 __pycache__/
+d1scan/__pycache__/
 *.py[cod]
 *.log
 *.sqlite3
@@ -8,8 +9,6 @@ __pycache__/
 */migrations/*.py
 !__init__.py
 logs/*
-devops/settings_local.py
-devops/settings.py
 *.conf
 *.ini
 .DS_Store
