@@ -2,8 +2,8 @@
 集成信息收集，渗透测试平台，欢迎各位大牛提供技术方案，共勉！
 佛性更新，当作django练手。
 
-![image](https://github.com/DisMeo/d1scan/blob/master/blob/1.gif)
 ![image](https://github.com/DisMeo/d1scan/blob/master/blob/2.gif)
+![image](https://github.com/DisMeo/d1scan/blob/master/blob/1.gif)
 ![image](https://github.com/DisMeo/d1scan/blob/master/blob/3.gif)
 #### 工具依赖
 * Django
