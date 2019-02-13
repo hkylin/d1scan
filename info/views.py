@@ -97,15 +97,15 @@ def identify_web(request):
 
 def ip_blacklist(request):
 
-    feed_list = ['Cisco Talos', 'Sans', 'Fire Eye']
+    feed_list = ['Cisco Talos', 'Abuse.ch勒索软件']
     if request.method == 'POST':
 
         target = request.POST.get('feed_tgt_select[]')
 
         if target == 'Cisco Talos':
 
-            target = 'https://talosintelligence.com/documents/ip-blacklist'
-            html = r.Request(target, headers=headers)
+            target_ulr = 'https://talosintelligence.com/documents/ip-blacklist'
+            html = r.Request(target_ulr, headers=headers)
             res = r.urlopen(html).read()
             res = res.decode('utf-8')
 
@@ -116,6 +116,18 @@ def ip_blacklist(request):
 
             return render(request, 'info/ip_blacklist.html', data)
 
+        elif target == 'Abuse.ch勒索软件':
+
+            target_ulr = 'https://ransomwaretracker.abuse.ch/downloads/RW_IPBL.txt'
+            html = r.Request(target_ulr, headers=headers)
+            res = r.urlopen(html).read()
+            res = res.decode('utf-8')
+            data = {
+                'feed_list': feed_list,
+                'result': res
+            }
+
+            return render(request, 'info/ip_blacklist.html', data)
     else:
 
         data = {
