@@ -43,29 +43,31 @@
                 <li><a><i class="fa fa-bars"></i> Cloud <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="{% url 'who_is' %}">AWS</a>
-{#                        <li><a href="{% url 'subdomain_scan' %}">二级域名收集</a>#}
-{#                        <li><a href="{% url 'port_scan' %}">端口信息收集</a>#}
-{#                        <li><a href="{% url 'identify_web' %}">指纹收集</a>#}
+                            {#                        <li><a href="{% url 'subdomain_scan' %}">二级域名收集</a>#}
+                            {#                        <li><a href="{% url 'port_scan' %}">端口信息收集</a>#}
+                            {#                        <li><a href="{% url 'identify_web' %}">指纹收集</a>#}
                             {#                        <li><a href="{% url 'web_log' %}">web日志</a>#}
                         </li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-anchor"></i> 渗透测试 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        {#                        <li><a href="{% url 'project_list' %}">项目列表</a>#}
-                        {#                            <ul class="nav child_menu">#}
-                        {#                                <li class="sub_menu" style="display: none"><a#}
-                        {#                                        href="{% url 'project_add' %}"></a>#}
-                        {#                                </li>#}
-                        {#                            </ul>#}
-                        {#                        <li><a href="{% url 'code_deploy_list' %}">发布项目</a>#}
-                        {#                            <ul class="nav child_menu">#}
-                        {#                                <li class="sub_menu" style="display: none"><a#}
-                        {#                                        href="{% url 'code_deploy_add' %}"></a>#}
-                        {#                                </li>#}
-                        {#                            </ul>#}
-                        {#                        <li><a href="{% url 'jenkins_list' %}">Jenkins管理</a>#}
-                        {#                        </li>#}
+                        <li><a href="{% url 'sqli_model' %}">SQL注入测试</a>
+                        <li><a href="{% url 'xss_model' %}">XSS测试</a>
+                        <li><a href="{% url 'vul_model' %}">漏洞测试</a>
+                            {#                            <ul class="nav child_menu">#}
+                            {#                                <li class="sub_menu" style="display: none"><a#}
+                            {#                                        href="{% url 'project_add' %}"></a>#}
+                            {#                                </li>#}
+                            {#                            </ul>#}
+                            {#                        <li><a href="{% url 'code_deploy_list' %}">发布项目</a>#}
+                            {#                            <ul class="nav child_menu">#}
+                            {#                                <li class="sub_menu" style="display: none"><a#}
+                            {#                                        href="{% url 'code_deploy_add' %}"></a>#}
+                            {#                                </li>#}
+                            {#                            </ul>#}
+                            {#                        <li><a href="{% url 'jenkins_list' %}">Jenkins管理</a>#}
+                            {#                        </li>#}
                     </ul>
                 </li>
                 {#                <li><a><i class="fa fa-database"></i> 数据库管理 <span class="fa fa-chevron-down"></span></a>#}
