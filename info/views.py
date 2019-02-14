@@ -74,6 +74,7 @@ def port_scan(request):
         commandline = nm.command_line()
         with open('blob/nmap/info.xml', 'w') as f:
             f.write(nm.get_nmap_last_output())
+            f.close()
         info = nm[target]
         #转换xml到html
         os_cmd = 'xsltproc blob/nmap/info.xml info/nmap-xsl/http-services.xsl -o blob/nmap/info.html'
