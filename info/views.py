@@ -6,6 +6,8 @@ from asset.models import DomainList
 import whois
 import nmap
 from urllib import request as r
+import os
+import subprocess
 
 headers = {
     'User-Agent': r'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -58,14 +60,25 @@ def port_scan(request):
         service = request.POST.get('service_tgt_select[]')
         port = request.POST.get('arg')
 
-        defaultcmd = '-Pn'
+        #定义namp的扫描参数
+        defaultcmd = 'Pn'
         portcmd = '-p' + request.POST.get('arg')
         cmd = service + ' ' + defaultcmd + ' ' + portcmd
-
+        # os_cmd = 'ls blob/'
+        # s = subprocess.Popen(str(os_cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        # stdoutinfo, stderrinfo = s.communicate()
+        # print(stdoutinfo)
+        #开始扫描，写入xml文件
         nm = nmap.PortScanner()
         nm.scan(hosts=target, arguments=cmd)
         commandline = nm.command_line()
+        with open('blob/nmap/info.xml', 'w') as f:
+            f.write(nm.get_nmap_last_output())
         info = nm[target]
+        #转换xml到html
+        os_cmd = 'xsltproc blob/nmap/info.xml info/nmap-xsl/http-services.xsl -o blob/nmap/info.html'
+        s = subprocess.Popen(str(os_cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
 
         data = {
             'ip_list': ip_list,
@@ -73,7 +86,7 @@ def port_scan(request):
             'service_list': service_list,
             'arg': port,
             'cmd': commandline,
-            'result': info,
+            'result': info
         }
 
         return render(request, 'info/port_scan.html', data)
