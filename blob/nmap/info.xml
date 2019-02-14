@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Thu Feb 14 14:26:04 2019 as: nmap -oX - -sV -p443 115.239.210.27 Pn -->
+<nmaprun scanner="nmap" args="nmap -oX - -sV -p443 115.239.210.27 Pn" start="1550154364" startstr="Thu Feb 14 14:26:04 2019" version="7.70" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="1" services="443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1550154364" endtime="1550154379"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="115.239.210.27" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Apache httpd" tunnel="ssl" method="probed" conf="10"><cpe>cpe:/a:apache:http_server</cpe></service></port>
+</ports>
+<times srtt="14684" rttvar="11378" to="100000"/>
+</host>
+<runstats><finished time="1550154379" timestr="Thu Feb 14 14:26:19 2019" elapsed="15.22" summary="Nmap done at Thu Feb 14 14:26:19 2019; 2 IP addresses (1 host up) scanned in 15.22 seconds" exit="success"/><hosts up="1" down="1" total="2"/>
+</runstats>
+</nmaprun>
