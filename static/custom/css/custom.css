@@ -647,7 +647,7 @@ h3,
     margin-bottom: 10px
 }
 a {
-    color: #ffffff;
+    color: #22292e;
     text-decoration: none
 }
 a,
@@ -665,7 +665,10 @@ a:active,
 .btn.active.focus {
     outline: 0
 }
-a:hover,
+a:hover  {
+    color: #740004;
+    text-decoration: none
+}
 a:focus {
     text-decoration: none
 }
@@ -1665,7 +1668,7 @@ span.right {
     padding: 5px 0 0 0;
     position: fixed;
     width: 230px;
-    background: #2e353b;
+    background: #475660;
 	z-index:999;
 }
 .sidebar-footer a {
@@ -1675,11 +1678,11 @@ span.right {
     font-size: 17px;
     display: block;
     float: left;
-    background: #180c01;
+    background: #f7f7f7;
     cursor: pointer;
 }
 .sidebar-footer a:hover {
-    background: #425567
+    background: #22292e
 }
 .tile_count {
     margin-bottom: 20px;
@@ -2341,7 +2344,10 @@ a.btn-danger {
     background: #24292e;
     border: 1px solid #180c01
 }
-.btn-success:hover,
+.btn-success:hover {
+    border: 1px solid #24292e;
+    background: #740004;
+}
 .btn-success:focus,
 .btn-success:active,
 .btn-success.active,
