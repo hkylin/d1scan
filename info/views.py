@@ -108,7 +108,7 @@ def port_scan(request):
 
     elif request.method == 'GET':
 
-        target = request.POST.get('ip',None)
+        target = request.POST.get('ip', None)
         techniques_list = ['-sS | TCP SYN Scan', '-sT | Connect Scan', '-sA | ACK Scan', '-sU | UDP Scan']
         service_list = ['-sV', '--version-intensity', '--version-light', '--version-all']
         data = {
@@ -118,8 +118,11 @@ def port_scan(request):
         }
 
         return render(request, 'info/port_scan.html', data)
+
+
 def namp_result(request):
     return render(request, 'nmap/info.html')
+
 
 def identify_web(request):
     return HttpResponse('identify web')
