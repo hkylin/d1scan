@@ -44,26 +44,30 @@
                                               method="post">
 
                                             {% csrf_token %}
-
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">目标IP<span
-                                                        class="required">*</span>
+                                                >（选填）</span>
                                                 </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
-                                                    <select id="id_tgt_select" name="id_tgt_select[]"
-                                                            class=" selectpicker show-menu-arrow form-control"
-                                                            data-selected-text-format="count"
-                                                            data-live-search="true">
-                                                        {% for item in ip_list %}
-                                                            <option value="{{ item.ipaddress }}">
-                                                                {{ item.ipaddress }}</option>
-                                                        {% endfor %}
-                                                    </select>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                                    <input type="text" class="form-control" id="esingle" name="ip"
+                                                           value="{{ ip }}"
+                                                           placeholder="1.1.1.0/24 or 1.1.1.1">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="id_file_path">批量扫描<span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control col-md-7 col-xs-12" id="id_file_path"
+                                                           name="file_path" type="file"/>
                                                 </div>
                                             </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">扫描方式 <span
-                                                        class="required">*</span>
+                                                ></span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
@@ -78,7 +82,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        <div class="item form-group">
+                                            <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">服务信息 <span
                                                         class="required">*</span>
                                                 </label>
@@ -98,22 +102,23 @@
 
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">端口范围<span
-                                                        class="required">*</span>
+                                                ></span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
                                                     <input type="text" class="form-control" id="esingle" name="arg"
-                                                           value="{{ arg }}" required="required" placeholder="0-65535">
+                                                           value="{{ arg }}" placeholder="0-65535 or 1-100">
                                                 </div>
                                             </div>
-                                        <div class="item form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Command Line<span
-                                                        ></span>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Command
+                                                    Line<span
+                                                    ></span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
 
                                                     <input type="text" class="form-control" id="esingle" name="cmd"
-                                                           value="{{ cmd }}"  placeholder="显示执行的命令">
+                                                           value="{{ cmd }}" placeholder="显示执行的命令">
                                                 </div>
                                             </div>
 
@@ -131,8 +136,9 @@
                                                 <span class="esingle">
                                                         <button class="btn btn-success" type="submit">运行</button>
                                                     </span>
-                                                {#                                                    <a href="#" onclick="show_result();" role="button"#}
-                                                {#                                                       class="btn btn-info">查看结果</a>#}
+
+                                                <a href="{% url 'namp_result' %}"  role="button"
+                                                   class="btn btn-info">查看结果</a>
                                             </div>
 
 
@@ -151,8 +157,8 @@
                                                 <div class="ibox float-e-margins">
                                                     <div class="ibox-content">
                                                         <textarea class="form-control" name="result"
-                                                              rows="10">{{ result }}</textarea>
-{#                                                        <pre id="output_append"></pre>#}
+                                                                  rows="10">{{ result }}</textarea>
+                                                        {#                                                        <pre id="output_append"></pre>#}
                                                     </div>
                                                 </div>
 

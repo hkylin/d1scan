@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^identify_web/$', views.identify_web, name='identify_web'),
     url(r'^who_is/edit/(?P<action>[\w-]+)/$', views.who_is, name='who_is'),
     url(r'^ip_blacklist/$', views.ip_blacklist, name='ip_blacklist'),
+    url(r'^namp_result/$', views.namp_result, name='namp_result'),
+
 ]

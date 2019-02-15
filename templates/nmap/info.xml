@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Fri Feb 15 14:08:29 2019 as: nmap -oX - -sV -p443 115.239.210.27 154.8.131.165 Pn -->
+<nmaprun scanner="nmap" args="nmap -oX - -sV -p443 115.239.210.27 154.8.131.165 Pn" start="1550239709" startstr="Fri Feb 15 14:08:29 2019" version="7.70" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="1" services="443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1550239709" endtime="1550239729"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="115.239.210.27" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="Apache httpd" tunnel="ssl" method="probed" conf="10"><cpe>cpe:/a:apache:http_server</cpe></service></port>
+</ports>
+<times srtt="15455" rttvar="11614" to="100000"/>
+</host>
+<host starttime="1550239709" endtime="1550239729"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="154.8.131.165" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" product="nginx" tunnel="ssl" method="probed" conf="10"><cpe>cpe:/a:igor_sysoev:nginx</cpe></service></port>
+</ports>
+<times srtt="31583" rttvar="24711" to="130427"/>
+</host>
+<runstats><finished time="1550239730" timestr="Fri Feb 15 14:08:50 2019" elapsed="20.44" summary="Nmap done at Fri Feb 15 14:08:50 2019; 3 IP addresses (2 hosts up) scanned in 20.44 seconds" exit="success"/><hosts up="2" down="1" total="3"/>
+</runstats>
+</nmaprun>
