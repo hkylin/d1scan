@@ -51,19 +51,21 @@ def port_scan(request):
     if request.method == 'POST':
 
         techniques_list = ['-sS', '-sT', '-sA', '-sU']
+        speed_list = ['-T0', '-T1','-T2','-T3','-T5']
         service_list = ['-sV', '--version-intensity', '--version-light', '--version-all']
         result = request.GET.get('result')
         target = request.POST.get('ip')
         techniques = request.POST.get('techniques_tgt_select[]')
         service = request.POST.get('service_tgt_select[]')
         port = request.POST.get('arg', None)
-
+        speed = request.POST.get('speed_tgt_select[]')
+        
         defaultcmd = 'Pn'
         target_list = []
         # 判断是否批量扫描
         if bool(target) is True:
             target = request.POST.get('ip')
-            print(target)
+            target_list.append(target)
 
         elif bool(target) is False:
 
@@ -76,15 +78,14 @@ def port_scan(request):
 
         # 判断端口，定义arguments
         if port == 'None':
-            cmd = service + ' ' + defaultcmd
+            cmd = service + ' ' + defaultcmd + ' ' + speed
         else:
             portcmd = '-p' + port
-            cmd = service + ' ' + defaultcmd + ' ' + portcmd
+            cmd = service + ' ' + defaultcmd + ' ' + portcmd+ ' ' + speed
 
         # 开始扫描，写入xml文件
         nm = nmap.PortScanner()
         targethost = ' '.join(target_list)
-        print(targethost)
         nm.scan(hosts=targethost, arguments=cmd)
         commandline = nm.command_line()
         with open('templates/nmap/info.xml', 'w') as f:
@@ -99,6 +100,7 @@ def port_scan(request):
             'ip': target,
             'techniques_list': techniques_list,
             'service_list': service_list,
+            'speed_list': speed_list,
             'arg': port,
             'cmd': commandline,
             'result': info
@@ -110,9 +112,10 @@ def port_scan(request):
 
         target = request.POST.get('ip', None)
         techniques_list = ['-sS | TCP SYN Scan', '-sT | Connect Scan', '-sA | ACK Scan', '-sU | UDP Scan']
+        speed_list = ['-T0', '-T1', '-T2', '-T3', '-T5']
         service_list = ['-sV', '--version-intensity', '--version-light', '--version-all']
         data = {
-            # 'ip': target,
+            'speed_list': speed_list,
             'techniques_list': techniques_list,
             'service_list': service_list,
         }

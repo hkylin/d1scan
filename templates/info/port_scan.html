@@ -99,6 +99,23 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                        <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">扫描速度 <span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                                    <select id="speed_tgt_select" name="speed_tgt_select[]"
+                                                            class=" selectpicker show-menu-arrow form-control"
+                                                            data-selected-text-format="count"
+                                                            data-live-search="true"><option selected="selected">-T4</option>
+                                                        {% for speed in speed_list %}
+                                                            <option value="{{ speed }}">
+                                                                {{ speed }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
 
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">端口范围<span
